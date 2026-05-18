@@ -529,6 +529,213 @@ function AdminView({ contracts, suppliers, onAddSupplier, onAddContract, onDelet
   );
 }
 
+// ── О проекте ────────────────────────────────────────────────────────────────
+
+function AboutView() {
+  const sections = [
+    {
+      icon: "Lightbulb" as const,
+      color: "#00d4ff",
+      title: "Идея",
+      content: [
+        "FinVault — MVP-платформа для краудинвестиций в реальные бизнес-контракты. Инвестор заходит, видит список верифицированных контрактов (строительство, АПК, IT, логистика), выбирает нужный и вкладывает деньги от минимального порога.",
+        "Модель: поставщик приносит контракт с документами → администратор верифицирует и публикует → инвесторы скидываются → поставщик получает финансирование → инвесторы получают доход.",
+      ],
+    },
+    {
+      icon: "Target" as const,
+      color: "#00e5a0",
+      title: "Цель MVP",
+      content: [
+        "Проверить спрос: готовы ли инвесторы вкладываться в контракты через онлайн-платформу без личной встречи? Администратор добавляет поставщиков и контракты вручную. Заявки собираются и передаются менеджеру.",
+      ],
+    },
+    {
+      icon: "Users" as const,
+      color: "#a78bfa",
+      title: "Аудитория",
+      content: [
+        "Инвесторы — физлица с капиталом от 30 000 ₽, ищущие доходность выше банковского депозита (12–20% годовых) в реальном секторе.",
+        "Поставщики — МСБ с действующими госконтрактами или B2B-сделками, кому нужно краткосрочное финансирование оборотного капитала.",
+      ],
+    },
+  ];
+
+  const stack = [
+    { label: "Frontend", value: "React + TypeScript + Vite" },
+    { label: "Стилизация", value: "Tailwind CSS + shadcn/ui" },
+    { label: "Шрифт основной", value: "IBM Plex Sans (300–700)" },
+    { label: "Шрифт цифр", value: "IBM Plex Mono (400–500)" },
+    { label: "Backend", value: "Python 3.11 Cloud Functions" },
+    { label: "База данных", value: "PostgreSQL" },
+    { label: "Файлы / CDN", value: "S3 / CDN poehali.dev" },
+  ];
+
+  const palette = [
+    { name: "Фон", hex: "#070d18", style: { background: "#070d18", border: "1px solid rgba(255,255,255,0.2)" } },
+    { name: "Акцент Cyan", hex: "#00d4ff", style: { background: "#00d4ff" } },
+    { name: "Успех / доход", hex: "#00e5a0", style: { background: "#00e5a0" } },
+    { name: "Админ / предупреждение", hex: "#ff8c42", style: { background: "#ff8c42" } },
+    { name: "Стекло (glass)", hex: "rgba(255,255,255,0.04)", style: { background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.25)" } },
+    { name: "Текст вторичный", hex: "rgba(255,255,255,0.45)", style: { background: "rgba(255,255,255,0.45)" } },
+  ];
+
+  const tzBlocks = [
+    {
+      num: "01", title: "Каталог контрактов (инвестор)",
+      items: ["Карточки с названием, поставщиком, категорией и описанием", "Прогресс-бар сбора средств", "Метрики: доходность %, срок, минимальный взнос", "Фильтрация по категориям (Строительство, АПК, IT…)", "Кнопка «Вложить» для открытых контрактов"],
+    },
+    {
+      num: "02", title: "Модалка инвестирования",
+      items: ["Ввод суммы вручную или быстрые кнопки ×1 / ×5 / ×10 от минимума", "Живой калькулятор: считает доход и итог в реальном времени", "Отправка заявки → экран подтверждения"],
+    },
+    {
+      num: "03", title: "Админ-панель",
+      items: ["Добавление поставщиков (название, категория, описание)", "Добавление контрактов (поставщик, сумма, доходность, срок, дедлайн)", "Список активных контрактов с прогрессом сбора", "Удаление контрактов"],
+    },
+    {
+      num: "04", title: "Следующие шаги",
+      items: ["Авторизация (инвестор + администратор)", "Сохранение данных в базе данных", "Email-уведомления по заявкам", "Личный кабинет с историей вложений", "Загрузка документов по контракту"],
+    },
+  ];
+
+  return (
+    <div className="min-h-screen" style={{ background: "#070d18" }}>
+      <header className="flex items-center justify-between px-5 py-4" style={{ background: "rgba(7,13,24,0.95)", backdropFilter: "blur(20px)", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background: "rgba(167,139,250,0.2)", border: "1px solid rgba(167,139,250,0.3)" }}>
+            <Icon name="FileText" size={18} style={{ color: "#a78bfa" }} />
+          </div>
+          <div>
+            <div className="font-bold text-white text-base leading-none">О проекте</div>
+            <div className="text-xs text-white/30 font-mono mt-0.5">Концепция · Дизайн · ТЗ</div>
+          </div>
+        </div>
+        <span className="text-xs font-mono px-2 py-1 rounded-lg" style={{ background: "rgba(167,139,250,0.1)", color: "#a78bfa" }}>MVP v1.0 · май 2026</span>
+      </header>
+
+      <div className="max-w-3xl mx-auto px-4 py-10 space-y-10">
+
+        {/* Hero */}
+        <div>
+          <h1 className="text-3xl font-bold text-white mb-3">FinVault</h1>
+          <p className="text-white/50 text-base leading-relaxed max-w-xl">
+            Платформа краудинвестиций в реальные бизнес-контракты. Соединяет инвесторов с верифицированными поставщиками, которым нужно финансирование оборотного капитала.
+          </p>
+        </div>
+
+        {/* Идея / цель / аудитория */}
+        <div className="space-y-4">
+          {sections.map((s, i) => (
+            <div key={i} className="glass rounded-2xl p-5" style={{ border: "1px solid rgba(255,255,255,0.07)" }}>
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: `${s.color}18`, border: `1px solid ${s.color}30` }}>
+                  <Icon name={s.icon} size={15} style={{ color: s.color }} />
+                </div>
+                <h2 className="font-semibold text-white">{s.title}</h2>
+              </div>
+              {s.content.map((p, j) => (
+                <p key={j} className="text-sm text-white/55 leading-relaxed mb-2 last:mb-0">{p}</p>
+              ))}
+            </div>
+          ))}
+        </div>
+
+        {/* ТЗ */}
+        <div>
+          <h2 className="text-lg font-bold text-white mb-4">Техническое задание</h2>
+          <div className="space-y-4">
+            {tzBlocks.map((block, i) => (
+              <div key={i} className="glass rounded-2xl p-5" style={{ border: "1px solid rgba(255,255,255,0.07)" }}>
+                <div className="flex items-center gap-3 mb-3">
+                  <span className="font-mono text-xs" style={{ color: "var(--cyan)" }}>{block.num}</span>
+                  <h3 className="text-sm font-semibold text-white">{block.title}</h3>
+                </div>
+                <ul className="space-y-1.5">
+                  {block.items.map((item, j) => (
+                    <li key={j} className="flex items-start gap-2 text-sm text-white/55">
+                      <span className="mt-2 w-1 h-1 rounded-full flex-shrink-0" style={{ background: "var(--cyan)" }} />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Дизайн */}
+        <div>
+          <h2 className="text-lg font-bold text-white mb-4">Дизайн-система</h2>
+
+          <div className="glass rounded-2xl p-5 mb-4" style={{ border: "1px solid rgba(255,255,255,0.07)" }}>
+            <div className="flex items-center gap-3 mb-3">
+              <Icon name="Palette" size={15} style={{ color: "var(--cyan)" }} />
+              <h3 className="text-sm font-semibold text-white">Концепция</h3>
+            </div>
+            <p className="text-sm text-white/55 leading-relaxed">
+              <span className="text-white/80 font-medium">Dark Fintech / Glass UI.</span> Тёмный фон (#070d18) с тонкой cyan-сеткой создаёт ощущение профессионального торгового терминала. Стеклянные карточки (backdrop-filter blur) дают глубину без визуального шума. Cyan (#00d4ff) — доверие и технологичность. Зелёный (#00e5a0) — прибыль. Оранжевый (#ff8c42) — только для административной части (визуальное разграничение ролей).
+            </p>
+          </div>
+
+          <div className="glass rounded-2xl p-5 mb-4" style={{ border: "1px solid rgba(255,255,255,0.07)" }}>
+            <div className="flex items-center gap-3 mb-4">
+              <Icon name="Type" size={15} style={{ color: "var(--cyan)" }} />
+              <h3 className="text-sm font-semibold text-white">Типографика</h3>
+            </div>
+            <div className="space-y-4">
+              <div>
+                <div className="text-xs text-white/35 mb-1 font-mono">Основной · IBM Plex Sans</div>
+                <div className="text-2xl font-bold text-white">Заголовки и текст</div>
+                <div className="text-sm text-white/40 mt-0.5">Weights: 300 Light · 400 Regular · 500 Medium · 600 SemiBold · 700 Bold</div>
+              </div>
+              <div style={{ borderTop: "1px solid rgba(255,255,255,0.06)", paddingTop: "14px" }}>
+                <div className="text-xs text-white/35 mb-1 font-mono">Цифровой · IBM Plex Mono</div>
+                <div className="text-2xl font-mono text-white">₽12 500 000 · 18% · 68%</div>
+                <div className="text-sm text-white/40 mt-0.5">Суммы, проценты, прогресс, метки · Weights: 400 / 500</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="glass rounded-2xl p-5" style={{ border: "1px solid rgba(255,255,255,0.07)" }}>
+            <div className="flex items-center gap-3 mb-4">
+              <Icon name="Droplets" size={15} style={{ color: "var(--cyan)" }} />
+              <h3 className="text-sm font-semibold text-white">Цветовая палитра</h3>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+              {palette.map((c, i) => (
+                <div key={i} className="flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-xl flex-shrink-0" style={c.style} />
+                  <div>
+                    <div className="text-xs font-medium text-white/70 leading-tight">{c.name}</div>
+                    <div className="text-xs font-mono text-white/30 mt-0.5">{c.hex}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Стек */}
+        <div>
+          <h2 className="text-lg font-bold text-white mb-4">Технический стек</h2>
+          <div className="glass rounded-2xl overflow-hidden" style={{ border: "1px solid rgba(255,255,255,0.07)" }}>
+            {stack.map((item, i) => (
+              <div key={i} className="flex items-center justify-between px-5 py-3.5" style={{ borderBottom: i < stack.length - 1 ? "1px solid rgba(255,255,255,0.05)" : undefined }}>
+                <span className="text-sm text-white/40">{item.label}</span>
+                <span className="text-sm font-mono text-white/75">{item.value}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+    </div>
+  );
+}
+
+// ── Root ─────────────────────────────────────────────────────────────────────
+
 export default function App() {
   const [view, setView] = useState<View>("investor");
   const [contracts, setContracts] = useState<Contract[]>(INITIAL_CONTRACTS);
@@ -550,6 +757,12 @@ export default function App() {
           <Icon name="ShieldCheck" size={13} />
           Админ
         </button>
+        <button onClick={() => setView("about" as View)}
+          className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-medium transition-all"
+          style={view === ("about" as View) ? { background: "rgba(167,139,250,0.15)", color: "#a78bfa" } : { color: "rgba(255,255,255,0.4)" }}>
+          <Icon name="FileText" size={13} />
+          О проекте
+        </button>
       </div>
 
       {view === "investor" && <InvestorView contracts={contracts} />}
@@ -562,6 +775,7 @@ export default function App() {
           onDeleteContract={id => setContracts(prev => prev.filter(c => c.id !== id))}
         />
       )}
+      {view === ("about" as View) && <AboutView />}
     </div>
   );
 }
